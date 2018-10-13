@@ -2,13 +2,13 @@
 
 namespace database;
 
-class Db
+class Db implements IDb
 {
-    public function queryOne($sql)
+    public function queryOne(string $sql): array
     {
         return [];
     }
-    public function queryAll($sql)
+    public function queryAll(string $sql): array
     {
         return [];
     }

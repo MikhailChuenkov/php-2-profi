@@ -10,6 +10,10 @@ class User extends Model
     public $login;
     public $password;
 
-    protected $tableName = 'users';
+
+    public function getTableName()
+    {
+        return 'user';
+    }
 
 }

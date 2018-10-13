@@ -9,5 +9,9 @@ class Order extends Model
     public $idOrder;
     public $idUser;
 
-    protected $tableName = 'order';
+
+    public function getTableName()
+    {
+        return 'order';
+    }
 }

@@ -10,6 +10,8 @@ class Product extends Model
     public $price;
     public $producerId;
 
-    protected $tableName = 'products';
-
+public function getTableName()
+{
+    return 'product';
+}
 }

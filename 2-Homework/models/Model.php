@@ -4,33 +4,35 @@
 namespace models;
 
 
-class Model
+abstract class Model implements IModel
 {
     /**
      * @var
      */
     private $db;
-    protected $tableName;
 
     /**
      * Product constructor.
      * @param \database\Db $db
      */
-    public function __construct()
+    public function __construct(\database\IDb $db)
     {
-        $this->db = new \database\Db();
+        $this->db = $db;
     }
 
     public function getOne($id)
     {
-        $sql = "SELECT * FROM {this->tableName} WHERE id = {$id}";
+        $table = $this->getTableName();
+        $sql = "SELECT * FROM {$table} WHERE id = {$id}";
         return $this->db->queryOne($sql);
     }
 
     public function getAll()
     {
-        $sql = "SELECT * FROM {this->tableName}";
+        $table = $this->getTableName();
+        $sql = "SELECT * FROM {$table}";
         return $this->db->queryAll($sql);
 
     }
+
 }

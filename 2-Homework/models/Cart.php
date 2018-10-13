@@ -10,5 +10,9 @@ class Cart extends Model
     public function delete(){
         //Удалить товар из корзины
     }
-    protected $tableName = 'cart';
+
+    public function getTableName()
+    {
+        return 'cart';
+    }
 }

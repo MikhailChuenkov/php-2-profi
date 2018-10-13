@@ -1,7 +1,7 @@
 <?php
 
 
-//namespace models;
+namespace models;
 
 
 class Model
@@ -14,11 +14,11 @@ class Model
 
     /**
      * Product constructor.
-     * @param Db $db
+     * @param \database\Db $db
      */
     public function __construct()
     {
-        $this->db = new Db();
+        $this->db = new \database\Db();
     }
 
     public function getOne($id)

@@ -1,6 +1,6 @@
 <?php
 
-//namespace autoload;
+namespace database;
 
 class Db
 {

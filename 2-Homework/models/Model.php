@@ -1,7 +1,7 @@
 <?php
 
 
-namespace models;
+namespace app\models;
 
 
 abstract class Model implements IModel
@@ -13,9 +13,9 @@ abstract class Model implements IModel
 
     /**
      * Product constructor.
-     * @param \database\Db $db
+     * @param \app\database\Db $db
      */
-    public function __construct(\database\IDb $db)
+    public function __construct(\app\database\IDb $db)
     {
         $this->db = $db;
     }

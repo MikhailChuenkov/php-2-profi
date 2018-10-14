@@ -1,11 +1,11 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . "/../services/Autoloader.php";
 
-spl_autoload_register([new \autoload\Autoloader(), 'loadClass']);
+spl_autoload_register([new \app\autoload\Autoloader(), 'loadClass']);
 
-$db = new \database\Db();
+$db = new \app\database\Db();
 
-$product = new \models\Product(new \database\Db());
+$product = new \app\models\Product($db);
 var_dump($product);
 var_dump($db);
 //$model = new \models\Model;

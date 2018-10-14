@@ -1,7 +1,7 @@
 <?php
 
 
-namespace database;
+namespace app\database;
 
 
 interface IDb

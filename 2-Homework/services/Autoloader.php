@@ -1,15 +1,15 @@
 <?php
 
-namespace autoload;
+namespace app\autoload;
 
 class Autoloader
 {
-
     public function loadClass($className)
     {
-        $filename = $_SERVER['DOCUMENT_ROOT'] . "/../{$className}.php";
-        include $filename;
-
+        $className = str_replace(["app\\"], [$_SERVER['DOCUMENT_ROOT'] . "/../"], $className);
+        $className .= ".php";
+        if (file_exists($className)){
+            include $className;
+        }
     }
-
 }

@@ -5,13 +5,12 @@ namespace app\models;
 class Product extends Model
 {
     public $id;
-    public $name;
-    public $description;
+    public $title;
     public $price;
-    public $producerId;
+    public $photo;
 
 public function getTableName()
 {
-    return 'product';
+    return 'goodsData';
 }
 }

@@ -19,14 +19,20 @@ class Db implements IDb
     {
         var_dump($this->prepareDsnString());
         if (is_null($this->conn)) {
+            /*$this->conn = mysqli_connect(
+                $this->config['host'],
+                $this->config['login'],
+                $this->config['password'],
+                $this->config['database']
+            );*/
             $this->conn = new \PDO(
                 $this->prepareDsnString(),
                 $this->config['login'],
                 $this->config['password']
             );
 
-            //$this->conn->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
-        }
+            $this->conn->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
+            }
         var_dump($this->conn);
         return $this->conn;
     }

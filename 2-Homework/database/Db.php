@@ -10,15 +10,24 @@ class Db implements IDb
         'login' => 'root',
         'password' => '',
         'database' => 'shop_m',
-        'charset' => 'utf8',
+        'charset' => 'utf8'
     ];
 
     protected $conn = null;
 
-    private function getConnection(){
-        if(is_null($this->conn)){
-            $this->conn = new \PDO();
+    public function getConnection()
+    {
+        var_dump($this->prepareDsnString());
+        if (is_null($this->conn)) {
+            $this->conn = new \PDO(
+                $this->prepareDsnString(),
+                $this->config['login'],
+                $this->config['password']
+            );
+
+            //$this->conn->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
         }
+        var_dump($this->conn);
         return $this->conn;
     }
 
@@ -26,9 +35,20 @@ class Db implements IDb
     {
         return [];
     }
+
     public function queryAll(string $sql): array
     {
         return [];
+    }
+
+    private function prepareDsnString(): string
+    {
+        return sprintf("%s:host=%s;dbname=%s;charset=%s",
+            $this->config['driver'],
+            $this->config['host'],
+            $this->config['database'],
+            $this->config['charset']
+        );
     }
 
 }

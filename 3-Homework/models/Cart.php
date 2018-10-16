@@ -7,12 +7,14 @@ namespace app\models;
 class Cart extends Model
 {
     public $idUser;
-    public function delete(){
-        //Удалить товар из корзины
-    }
+    public $productId;
+    public $productName;
+    public $productCount;
+    public $productSumm;
+
 
     public function getTableName()
     {
-        return 'cart';
+        return 'basket';
     }
 }

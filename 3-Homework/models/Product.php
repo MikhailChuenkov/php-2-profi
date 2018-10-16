@@ -9,7 +9,10 @@ class Product extends Model
     public $price;
     public $photo;
 
-public function getTableName()
+    //public $product = new Product();
+
+
+    public function getTableName()
 {
     return 'goodsData';
 }

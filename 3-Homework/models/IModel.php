@@ -4,7 +4,7 @@ namespace app\models;
 
 interface IModel
 {
-    public function getOne($id);
+    public function getOne();
     public function getAll();
     public function getTableName();
 }

@@ -6,8 +6,8 @@ spl_autoload_register([new \app\autoload\Autoloader(), 'loadClass']);
 //$db = new \app\database\Db();
 //$db->getConnection();
 $product = new \app\models\Product();
-var_dump($product->getOne(1));
-//var_dump($product);
-//var_dump($db->prepearDsnString());
-//$model = new \models\Model;
-//var_dump($model);
+/*$product->title = 'Watch1';
+$product->price = 987;
+$product->photo = 'watch.jpg';*/
+$product->id = 5;
+var_dump($product->getAll());

@@ -2,8 +2,11 @@
 
 namespace app\database;
 
+use app\traits\TSingleton;
+
 class Db implements IDb
 {
+    use TSingleton;
     private $config = [
         'driver' => 'mysql',
         'host' => 'localhost',
@@ -15,21 +18,11 @@ class Db implements IDb
 
     protected $conn = null;
 
-    protected static $instance = NULL;
-    private function __construct()
-    {
-    }
+    private static $dbf = NULL;
 
-    public static function getInstance(){
-        if(is_null(static::$instance)){
-            static::$instance = new static();
-        }
-        return static::$instance;
-    }
 
     protected function getConnection()
     {
-        var_dump($this->prepareDsnString());
         if (is_null($this->conn)) {
             /*$this->conn = mysqli_connect(
                 $this->config['host'],
@@ -44,9 +37,9 @@ class Db implements IDb
                 $this->config['password']
             );
 
-            $this->conn->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
+            $this->conn->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_OBJ);
         }
-        var_dump($this->conn);
+        //var_dump($this->conn);
         return $this->conn;
     }
 
@@ -73,8 +66,8 @@ class Db implements IDb
     public function query(string $sql, array $params = [])
     {
         $pdoStatement = $this->getConnection()->prepare($sql);
-        $id = 1;
-        /*$pdoStatement->bindParam(":id",$id,\PDO::PARAM_INT);
+        /*$id = 1;
+        $pdoStatement->bindParam(":id",$id,\PDO::PARAM_INT);
         $pdoStatement->execute();*/
         $pdoStatement->execute($params);
         return $pdoStatement;
@@ -82,12 +75,15 @@ class Db implements IDb
 
     public function queryOne(string $sql, array $params = [])
     {
+        //var_dump($params);
         return $this->queryAll($sql, $params)[0];
     }
 
     public function queryAll(string $sql, array $params = [])
     {
         return $this->query($sql, $params)->fetchAll();
+        //return $this->getConnection()->query($sql);
+
     }
 
     public function execute(string $sql, array $params)
@@ -97,7 +93,6 @@ class Db implements IDb
 
     private function prepareDsnString(): string
     {
-        //mysql:host=$host;dbname=$db;charset=$charset
         return sprintf("%s:host=%s;dbname=%s;charset=%s",
             $this->config['driver'],
             $this->config['host'],

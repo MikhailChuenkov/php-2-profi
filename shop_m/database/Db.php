@@ -37,7 +37,7 @@ class Db implements IDb
                 $this->config['password']
             );
 
-            $this->conn->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_OBJ);
+            $this->conn->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
         }
         //var_dump($this->conn);
         return $this->conn;
@@ -87,9 +87,20 @@ class Db implements IDb
     }
 
     public function execute(string $sql, array $params)
-{
+    {
         $this->query($sql, $params);
-}
+    }
+
+    public function queryObject($sql, $params = [], $class)
+    {
+        $smpt = $this->query($sql, $params);
+        $smpt->setFetchMode(\PDO::FETCH_CLASS, $class);
+        return $smpt->fetch();
+    }
+
+    public function lastInsertId(){
+        return $this->getConnection()->lastInsertId();
+    }
 
     private function prepareDsnString(): string
     {

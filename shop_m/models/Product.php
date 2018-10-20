@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-class Product extends Model
+class Product extends DataModel
 {
     public $id;
     public $title;
@@ -10,8 +10,10 @@ class Product extends Model
     public $photo;
 
 
-    public function getTableName()
-{
-    return 'goodsData';
-}
+    public static function getTableName()
+    {
+        return 'goodsData';
+    }
+
+
 }

@@ -4,7 +4,7 @@
 namespace app\models;
 
 
-class Cart extends Model
+class Cart extends DataModel
 {
     public $idUser;
     public $productId;

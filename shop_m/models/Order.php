@@ -4,13 +4,13 @@
 namespace app\models;
 
 
-class Order extends Model
+class Order extends DataModel
 {
     public $idOrder;
     public $idUser;
 
 
-    public function getTableName()
+    public static function getTableName()
     {
         return 'order';
     }

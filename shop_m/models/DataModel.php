@@ -5,7 +5,7 @@ namespace app\models;
 
 use app\database\Db;
 
-abstract class Model implements IModel
+abstract class DataModel implements IModel
 {
 
     private $db;
@@ -16,18 +16,18 @@ abstract class Model implements IModel
     }
 
 
-    public function getOne($id)
+    public static function getOne($id)
     {
-        $table = $this->getTableName();
+        $table = static::getTableName();
         $sql = "SELECT * FROM {$table} WHERE id = :id";
-        return $this->db->queryObject($sql, [':id' => $id], get_called_class());
+        return Db::getInstance()->queryObject($sql, [':id' => $id], get_called_class());
     }
 
-    public function getAll()
+    public static function getAll()
     {
-        $table = $this->getTableName();
+        $table = static::getTableName();
         $sql = "SELECT * FROM {$table}";
-        return $this->db->queryObject($sql, [], get_called_class());
+        return Db::getInstance()->queryAll($sql);
 
     }
 
@@ -89,10 +89,8 @@ abstract class Model implements IModel
             if ($key != "id" && !(is_null($value))) {
                 $params = [];
                 $params[":{$key}"] = $value;
-                var_dump($params);
                 $placeholder = ":{$key}";
                 $sql = "UPDATE {$table} SET {$key} = {$placeholder} WHERE id = {$this->id}";
-                var_dump($sql);
                 $this->db->execute($sql, $params);
             }
         }

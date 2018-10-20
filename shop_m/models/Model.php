@@ -4,12 +4,14 @@
 namespace app\models;
 
 use app\database\Db;
+
 abstract class Model implements IModel
 {
 
     private $db;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->db = Db::getInstance();
     }
 
@@ -44,7 +46,7 @@ abstract class Model implements IModel
             ':title' => $this->title,
             ':price' => $this->price,
             ':photo' => $this->photo,
-            ]);
+        ]);
     }
 
     public function updateProductCount()
@@ -53,14 +55,15 @@ abstract class Model implements IModel
         $sql = "UPDATE {$table} SET productCount = :productCount";
         return $this->db->queryOne($sql, [
             ':productCount' => $this->productCount,
-            ]);
+        ]);
     }
 
-    public function insert(){
+    public function insert()
+    {
         $colums = [];
         $params = [];
-        foreach ($this as $key => $value){
-            if(gettype($value) == 'object'){
+        foreach ($this as $key => $value) {
+            if (gettype($value) == 'object') {
                 continue;
             }
             $params[":{$key}"] = $value;
@@ -75,14 +78,15 @@ abstract class Model implements IModel
         $this->id = $this->db->lastInsertId();
     }
 
-    public function update(){
+    public function update()
+    {
 
-        foreach ($this as $key => $value){
+        foreach ($this as $key => $value) {
             $table = $this->getTableName();
-            if(gettype($value) == 'object'){
+            if (gettype($value) == 'object') {
                 continue;
             }
-            if($key != "id" && !(is_null($value))){
+            if ($key != "id" && !(is_null($value))) {
                 $params = [];
                 $params[":{$key}"] = $value;
                 var_dump($params);
@@ -93,6 +97,15 @@ abstract class Model implements IModel
             }
         }
 
+    }
+
+    public function save()
+    {
+        if (is_null($this->id)) {
+            $this->insert();
+        } else {
+            $this->update();
+        }
     }
 
 }

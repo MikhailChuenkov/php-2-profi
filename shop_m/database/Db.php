@@ -88,6 +88,8 @@ class Db implements IDb
 
     public function execute(string $sql, array $params)
     {
+        var_dump($sql);
+        var_dump($params);
         $this->query($sql, $params);
     }
 

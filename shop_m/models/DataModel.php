@@ -80,21 +80,25 @@ abstract class DataModel implements IModel
 
     public function update()
     {
-
+        $stringSql = "";
+        $params = [];
+        $table = $this->getTableName();
         foreach ($this as $key => $value) {
-            $table = $this->getTableName();
+
             if (gettype($value) == 'object') {
                 continue;
             }
             if ($key != "id" && !(is_null($value))) {
-                $params = [];
+
                 $params[":{$key}"] = $value;
                 $placeholder = ":{$key}";
-                $sql = "UPDATE {$table} SET {$key} = {$placeholder} WHERE id = {$this->id}";
-                $this->db->execute($sql, $params);
+                $stringSql .= "{$key} = {$placeholder}, ";
             }
         }
+        $stringSql = substr($stringSql,0, strlen($stringSql)-2);
 
+        $sql = "UPDATE {$table} SET {$stringSql} WHERE id = {$this->id}";
+        $this->db->execute($sql, $params);
     }
 
     public function save()

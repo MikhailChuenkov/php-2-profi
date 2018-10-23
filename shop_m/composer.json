@@ -1,0 +1,6 @@
+{
+    "name": "mikhail/shop_m",
+    "require": {
+        "twig/twig": "^2.0"
+    }
+}

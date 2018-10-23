@@ -12,22 +12,25 @@ abstract class DataModel implements IModel
 
     public function __construct()
     {
-        $this->db = Db::getInstance();
+        $this->db = static::getDb();
     }
 
+    private static function getDb(){
+        return Db::getInstance();
+    }
 
     public static function getOne($id)
     {
         $table = static::getTableName();
         $sql = "SELECT * FROM {$table} WHERE id = :id";
-        return Db::getInstance()->queryObject($sql, [':id' => $id], get_called_class());
+        return static::getDb()->queryObject($sql, [':id' => $id], get_called_class());
     }
 
     public static function getAll()
     {
         $table = static::getTableName();
         $sql = "SELECT * FROM {$table}";
-        return Db::getInstance()->queryAll($sql);
+        return static::getDb()->queryAll($sql);
 
     }
 

@@ -4,7 +4,7 @@
 namespace app\models;
 
 
-class User extends DataModel
+class User extends DataEntity
 {
     public $id;
     public $login;

@@ -1,13 +1,12 @@
 <?php
 
+namespace app\models\repositories;
 
-namespace app\models;
-
+use app\models\DataEntity;
 use app\database\Db;
 
-abstract class DataModel implements IModel
+abstract class Repository implements IRepository
 {
-
     private $db;
 
     public function __construct()
@@ -15,18 +14,19 @@ abstract class DataModel implements IModel
         $this->db = static::getDb();
     }
 
+
     private static function getDb(){
         return Db::getInstance();
     }
 
-    public static function getOne($id)
+    public function getOne($id)
     {
         $table = static::getTableName();
         $sql = "SELECT * FROM {$table} WHERE id = :id";
-        return static::getDb()->queryObject($sql, [':id' => $id], get_called_class());
+        return static::getDb()->queryObject($sql, [':id' => $id], $this->getEntityClass());
     }
 
-    public static function getAll()
+    public function getAll()
     {
         $table = static::getTableName();
         $sql = "SELECT * FROM {$table}";
@@ -34,11 +34,11 @@ abstract class DataModel implements IModel
 
     }
 
-    public function delete()
+    public function delete(DataEntity $entity)
     {
         $table = $this->getTableName();
         $sql = "DELETE FROM {$table} WHERE id = :id";
-        return $this->db->execute($sql, [':id' => $this->id]);
+        return $this->db->execute($sql, [':id' => $entity->id]);
     }
 
     public function sendProduct()
@@ -61,11 +61,11 @@ abstract class DataModel implements IModel
         ]);
     }
 
-    public function insert()
+    public function insert(DataEntity $entity)
     {
         $colums = [];
         $params = [];
-        foreach ($this as $key => $value) {
+        foreach ($entity as $key => $value) {
             if (gettype($value) == 'object') {
                 continue;
             }
@@ -81,12 +81,12 @@ abstract class DataModel implements IModel
         $this->id = $this->db->lastInsertId();
     }
 
-    public function update()
+    public function update(DataEntity $entity)
     {
         $stringSql = "";
         $params = [];
         $table = $this->getTableName();
-        foreach ($this as $key => $value) {
+        foreach ($entity as $key => $value) {
 
             if (gettype($value) == 'object') {
                 continue;
@@ -100,17 +100,18 @@ abstract class DataModel implements IModel
         }
         $stringSql = substr($stringSql,0, strlen($stringSql)-2);
 
-        $sql = "UPDATE {$table} SET {$stringSql} WHERE id = {$this->id}";
+        $sql = "UPDATE {$table} SET {$stringSql} WHERE id = {$entity->id}";
         $this->db->execute($sql, $params);
     }
 
-    public function save()
+    public function save(DataEntity $entity)
     {
-        if (is_null($this->id)) {
-            $this->insert();
+        if (is_null($entity->id)) {
+            $this->insert($entity);
         } else {
-            $this->update();
+            $this->update($entity);
         }
     }
+
 
 }

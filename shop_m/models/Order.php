@@ -4,7 +4,7 @@
 namespace app\models;
 
 
-class Order extends DataModel
+class Order extends DataEntity
 {
     public $idOrder;
     public $idUser;

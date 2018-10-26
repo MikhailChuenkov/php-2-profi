@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-class Product extends DataModel
+class Product extends DataEntity
 {
     public $id;
     public $title;

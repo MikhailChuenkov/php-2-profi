@@ -6,11 +6,7 @@
 
   "autoload": {
     "psr-4": {
-      "app\\": "services/",
-      "app\\": "controllers/",
-      "app\\": "database/",
-      "app\\": "models/",
-      "app\\": "traits/"
+      "app\\": "./"
     }
   }
 }

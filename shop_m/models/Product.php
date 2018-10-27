@@ -9,11 +9,4 @@ class Product extends DataEntity
     public $price;
     public $photo;
 
-
-    public static function getTableName()
-    {
-        return 'goodsData';
-    }
-
-
 }

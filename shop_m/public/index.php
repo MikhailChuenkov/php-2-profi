@@ -21,16 +21,27 @@ try {
 } catch (Exception $e) {
     die ('ERROR: ' . $e->getMessage());
 }
+
+
+$product = \app\models\Product::getOne(8);
+
+var_dump($_SERVER);
 */
 
-//$product = \app\models\Product::getOne(8);
+try {
+    $request = new \app\services\Request();
+    $controllerName = $request->getControllerName()?: DEFAULT_CONTROLLER;
+    $actionName = $request->getActionName();
 
-//var_dump($product);
-
-$controllerName = $_GET['c'] ?: DEFAULT_CONTROLLER;
-$actionName = $_GET['a'];
+}catch (\Exception $e){
+    $controllerName = "error";
+} finally {
+}
 
 $controllerClass = CONTROLLER_NAMESPACE . "\\" . ucfirst($controllerName) . "Controller";
+
+//$controllerName = $_GET['c'] ?: DEFAULT_CONTROLLER;
+//$actionName = $_GET['a'];
 
 if (class_exists($controllerClass)){
     $controller = new $controllerClass(
@@ -38,4 +49,24 @@ if (class_exists($controllerClass)){
         //new \app\services\renderers\TwigRenderer()
     );
     $controller->run($actionName);
+}
+
+
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_POST['buybtn']) {
+        $controllerClass = CONTROLLER_NAMESPACE . "\\" . "CartController";
+        $actionName = "addProductToBasket";
+        $controller = new $controllerClass(
+            new \app\services\renderers\TemplateRenderer()
+        );
+        $controller->run($actionName);
+    }
+    if($_POST['checkoutbtn']){
+        $controllerClass = CONTROLLER_NAMESPACE . "\\" . "OrderController";
+        $actionName = "addOrder";
+        $controller = new $controllerClass(
+            new \app\services\renderers\TemplateRenderer()
+        );
+        $controller->run($actionName);
+    }
 }

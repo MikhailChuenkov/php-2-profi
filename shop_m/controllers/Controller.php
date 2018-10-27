@@ -1,8 +1,5 @@
 <?php
-
-
 namespace app\controllers;
-
 
 use app\services\renderers\IRenderer;
 
@@ -12,14 +9,12 @@ abstract class Controller
     protected $defaultAction = 'index';
     protected $layout = 'main';
     protected $useLayout = true;
-
     protected $renderer = NULL;
 
     public function __construct(IRenderer $renderer)
     {
         $this->renderer =  $renderer;
     }
-
 
     public function run($action = null)
     {

@@ -4,10 +4,12 @@
 namespace app\models;
 
 
-class Cart extends DataEntity
+class OrderProducts extends DataEntity
 {
+    public $orderId;
     public $productId;
     public $productName;
     public $productCount;
     public $productSumm;
+    public $orderSumm;
 }

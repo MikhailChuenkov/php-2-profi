@@ -1,3 +1,6 @@
+<?/** @var \app\models\Product $model
+ * @var \app\models\Cart $productsFromCart
+ */?>
 <p>Напишите отзыв</p>
 <form action="" method="post">
   <textarea name="comment" cols="40" rows="3" placeholder="Напишите что-нибудь"></textarea>
@@ -12,7 +15,7 @@
 <div id="products">
     <?php foreach ($model as $product): ?>
       <div class="card-product-box">
-        <a href="/product.php?id=<?= $product['id'] ?>">
+        <a href="/product/card?id=<?= $product['id'] ?>">
           <img class="card-product-img" src="img/<?= $product['photo'] ?>" alt="product">
           <h2><?= $product['title'] ?></h2>
           <h4>$<?= $product['price'] ?></h4>
@@ -51,16 +54,16 @@
 <br>
 <form action="" method="post">
   <p>Это корзина</p>
-    <?//php foreach ($getProductsFromBasket as $ProductsFromBasket): ?>
-  <h3><?//=$ProductsFromBasket['productName']?></h3>
-  <h3>Количество: <?//=$ProductsFromBasket['productCount']?></h3>
-  <h3>Цена: $<?//=$ProductsFromBasket['productSumm']?></h3>
-    <button type="submit" name="delProduct" value="<?//=$ProductsFromBasket['productId']?>">
+    <?php foreach ($productsFromCart as $products): ?>
+  <h3><?=$products['productName']?></h3>
+  <h3>Количество: <?=$products['productCount']?></h3>
+  <h3>Цена: $<?=$products['productSumm']?></h3>
+    <button type="submit" name="delProduct" value="<?=$products['productId']?>">
       Удалить товар
     </button>
-    <? //endforeach; ?>
+    <? endforeach; ?>
   <h2>Сумма: <?//=$getSummBasket?></h2>
-  <a href="myOrder.php">Оформить заказ</a>
+  <a href="/order">Оформить заказ</a>
 </form>
 
 <form action="" method="post" enctype="multipart/form-data">

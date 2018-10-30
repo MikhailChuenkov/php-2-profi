@@ -5,37 +5,40 @@ namespace app\controllers;
 
 use app\models\repositories\ProductRepository;
 use app\services\Session;
+use app\services\Request;
+use app\models\Cart;
 
 class CartController extends Controller
 {
-    public function actionIndexCart()
+    public function actionRedirectToProduct()
     {
-        $model = [];
-        echo $this->render("myCart", ['model' => $model]);
+        $productRepository = new ProductRepository();
+        $model = $productRepository->getAll();
+
+        $cart = new Cart();
+        $cart->getBasket();
+
+        //Product::getAll();
+        echo $this->render("products", [
+            'model' => $model,
+            'productsFromCartArray' => $cart->productsFromCartArray,
+            'productCount' => $cart->productCount,
+            'productSumm' => $cart->productSumm,
+            'summBasket' => $cart->summBasket
+        ]);
     }
 
-    public function actionAddProductToBasket(){
-        $id = $_POST['buybtn'];
-        $session = Session::getInstance();
-        echo 12321;
-        $session->setSessionBasket();
-        $productCount = $session->getSessionBasket();
 
-        $selectProduct = (new ProductRepository())->getOne($id);
-/*
-        $productToBasket = new Cart();
-        $productToBasket->productId = $selectProduct->id;
-        $productToBasket->productName = $selectProduct->title;
-        $productToBasket->productCount = 1;
-        $productToBasket->productSumm = $selectProduct->price;
-        (new CartRepository())->save($productToBasket);
-*/
-        if(isset($productCount[$selectProduct->id])){
-            $session->setIncProductCount($selectProduct->id);
-        }else{
-            $session->setProductCount($selectProduct->id);
-        }
-        $this->actionIndexCart();
+    public function actionAddProductToBasket()
+    {
+        (new Cart())->addToBasket();
+        $this->actionRedirectToProduct();
     }
 
+
+    public function actionDelProductFromBasket()
+    {
+        (new Cart())->delProductFromBasket();
+        $this->actionRedirectToProduct();
+    }
 }

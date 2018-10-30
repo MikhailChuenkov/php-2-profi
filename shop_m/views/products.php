@@ -16,7 +16,7 @@
     <?php foreach ($model as $product): ?>
       <div class="card-product-box">
         <a href="/product/card?id=<?= $product['id'] ?>">
-          <img class="card-product-img" src="img/<?=$product['photo'] ?>" alt="product">
+          <img class="card-product-img" src="/img/<?=$product['photo'] ?>" alt="product">
           <h2><?= $product['title'] ?></h2>
           <h4>$<?= $product['price'] ?></h4>
         </a>
@@ -24,7 +24,7 @@
           <div class="add-flex">
             <a href="#add" class="add-to-cart">
               <button class="add-to-cart-cont" name="buybtn" value="<?=$product['id']?>">
-                <img src="img/Forma 1 copy1.png" alt="cart">
+                <img src="/img/Forma 1 copy1.png" alt="cart">
                 Add to Cart
               </button>
             </a>
@@ -52,7 +52,7 @@
   <button type="submit" name="userbtnReg" value="1">Регистрация</button>
 </form>
 <br>
-<form action="/product" method="post">
+<form action="/cart/delProductFromBasket" method="post">
   <p>Это корзина</p>
     <?php foreach ($productsFromCartArray as $products): ?>
   <h3><?=$products->title?></h3>

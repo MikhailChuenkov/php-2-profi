@@ -1,6 +1,28 @@
 <?php
-define("ROOT_DIR", $_SERVER["DOCUMENT_ROOT"] . "/../");
-define("TEMPLATES_DIR", ROOT_DIR. "views/");
+return [
+    'rootDir' => __DIR__ . "/../",
+    'templatesDir' => __DIR__ . "/../views/",
+    'defaultController' => 'product',
+    'controllerNamespace' => "app\\controllers",
+    'components' => [
+        'db' => [
+            'class' => \app\database\Db::class,
+            'driver' => 'mysql',
+            'host' => 'localhost',
+            'login' => 'root',
+            'password' => '',
+            'database' => 'shop_m',
+            'charset' => 'utf8'
+        ],
+        'request' => [
+            'class' => \app\services\Request::class
+        ],
+        'renderer' => [
+            'class' => \app\services\renderers\TemplateRenderer::class
+        ],
+        'session' => [
+            'class' => \app\services\Session::class
+        ]
+    ]
 
-define("DEFAULT_CONTROLLER", "product");
-define("CONTROLLER_NAMESPACE", "app\controllers");
+];

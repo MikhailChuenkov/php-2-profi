@@ -4,11 +4,9 @@
 namespace app\services;
 
 
-use app\traits\TSingleton;
 
 class Session
 {
-    use TSingleton;
 
     public $selectBasket;
     public $selectIncProductCount;
@@ -38,6 +36,10 @@ class Session
         $_SESSION['basket'][$id] = 1;
     }
 
+    public function delProductFromBasket($id)
+    {
+        unset($_SESSION['basket'][$id]);
+    }
 
 
 }

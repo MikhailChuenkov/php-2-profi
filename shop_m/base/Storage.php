@@ -1,0 +1,24 @@
+<?php
+
+
+namespace app\base;
+
+
+class Storage
+{
+    private $items = [];
+
+    public function set($key, $object)
+    {
+        $this->items[$key] = $object;
+    }
+
+    public function get($key)
+    {
+        if(!isset($this->items[$key])){
+            $this->items[$key] = App::call()->createComponents($key);
+        }
+        return $this->items[$key];
+    }
+
+}

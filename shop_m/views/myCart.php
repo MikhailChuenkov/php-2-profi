@@ -13,5 +13,5 @@
   <button type="submit" name="checkoutbtn" value="checkout">
     Оформить заказ
   </button>
+  <a href="/product">Назад</a>
 </form>
-<a href="/product">Назад</a>

@@ -3,11 +3,10 @@
 
 namespace app\controllers;
 
-//use app\models\Product;
 use app\models\repositories\ProductRepository;
 use app\models\repositories\CartRepository;
 use app\services\Request;
-
+use app\services\Session;
 class ProductController extends Controller
 {
 
@@ -15,12 +14,35 @@ class ProductController extends Controller
 
     public function actionIndex()
     {
-        $model = (new ProductRepository())->getAll();
-        $productsFromCart = (new CartRepository())->getAll();
+        $productRepository = new ProductRepository();
+        $model = $productRepository->getAll();
+
+        $session = Session::getInstance();
+        $session->setSessionBasket();
+        $productCount = $session->getSessionBasket();
+        //unset($_SESSION['basket']['']);
+        //var_dump($_SESSION['basket']);
+
+        $productSumm = [];
+        $productsFromCartArray = [];
+        $summBasket = 0;
+        if(!empty($productCount)){
+            $productIds = array_keys($productCount);
+            for ($i = 0; $i < count($productIds); $i++){
+                $product = $productRepository->getOne($productIds[$i]);
+                $productsFromCartArray[] = $product;
+                $productSumm[$productIds[$i]] = $product->price * $productCount[$productIds[$i]];
+                $summBasket += $productSumm[$productIds[$i]];
+            }
+
+        }
             //Product::getAll();
         echo $this->render("products", [
             'model' => $model,
-            'productsFromCart' => $productsFromCart
+            'productsFromCartArray' => $productsFromCartArray,
+            'productCount' => $productCount,
+            'productSumm' => $productSumm,
+            'summBasket' => $summBasket
         ]);
 /*
         $entity = new Product();

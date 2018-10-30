@@ -1,7 +1,7 @@
 <?/** @var \app\models\Cart $cart */?>
 <form action="/product" method="post">
   <p>Это корзина</p>
-    <?php foreach ($cart as $ProductsFromBasket): ?>
+    <?php foreach ($model as $ProductsFromBasket): ?>
   <h3><?=$ProductsFromBasket['productName']?></h3>
   <h3>Количество: <?=$ProductsFromBasket['productCount']?></h3>
   <h3>Цена: $<?=$ProductsFromBasket['productSumm']?></h3>
@@ -14,3 +14,4 @@
     Оформить заказ
   </button>
 </form>
+<a href="/product">Назад</a>

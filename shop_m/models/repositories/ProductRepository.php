@@ -18,4 +18,10 @@ class ProductRepository extends Repository
         return Product::class;
     }
 
+    public function getProductByIds(array $ids){
+        $in = implode(", ", $ids);
+        var_dump($in);
+        return $this->find("SELECT * FROM goodsData WHERE id IN ({$in})", []);
+    }
+
 }

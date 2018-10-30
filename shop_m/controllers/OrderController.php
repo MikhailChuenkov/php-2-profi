@@ -25,9 +25,10 @@ class OrderController extends Controller
         $newOrder->idUser = $idUser;
         (new OrdersRepository())->save($newOrder);
         $orders = (new OrdersRepository())->getAll();
-        $cart = (new CartRepository())->getAll();
-        $orderProduct = new OrderProducts();
+        //$cart = (new CartRepository())->getAll();
+        $cart = $_SESSION['basket'];
         var_dump($cart);
+        $orderProduct = new OrderProducts();
 
         for($i =0; $i < count($cart); $i++)
         {
@@ -37,7 +38,6 @@ class OrderController extends Controller
         $orderProduct->productCount = $cart[$i]['productCount'];
         $orderProduct->productSumm = $cart[$i]['productSumm'];
         $orderProduct->orderSumm += $cart[$i]['productSumm'] * $cart[$i]['productCount'];
-        var_dump($orderProduct);
         (new OrderProductsRepository())->insert($orderProduct);
         }
     }

@@ -7,6 +7,7 @@ use app\traits\TSingleton;
 class Db implements IDb
 {
     use TSingleton;
+
     private $config = [
         'driver' => 'mysql',
         'host' => 'localhost',

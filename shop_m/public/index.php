@@ -28,6 +28,8 @@ $product = \app\models\Product::getOne(8);
 var_dump($_SERVER);
 */
 
+
+//var_dump($_SESSION['basket']);
 try {
     $request = new \app\services\Request();
     $controllerName = $request->getControllerName()?: DEFAULT_CONTROLLER;
@@ -50,8 +52,7 @@ if (class_exists($controllerClass)){
     );
     $controller->run($actionName);
 }
-
-
+/*
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($_POST['buybtn']) {
         $controllerClass = CONTROLLER_NAMESPACE . "\\" . "CartController";
@@ -70,3 +71,4 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $controller->run($actionName);
     }
 }
+*/

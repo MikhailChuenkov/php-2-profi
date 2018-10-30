@@ -15,7 +15,8 @@ abstract class Repository implements IRepository
     }
 
 
-    private static function getDb(){
+    private static function getDb()
+    {
         return Db::getInstance();
     }
 
@@ -98,7 +99,7 @@ abstract class Repository implements IRepository
                 $stringSql .= "{$key} = {$placeholder}, ";
             }
         }
-        $stringSql = substr($stringSql,0, strlen($stringSql)-2);
+        $stringSql = substr($stringSql, 0, strlen($stringSql) - 2);
 
         $sql = "UPDATE {$table} SET {$stringSql} WHERE id = {$entity->id}";
         $this->db->execute($sql, $params);
@@ -113,5 +114,9 @@ abstract class Repository implements IRepository
         }
     }
 
+    public function find($sql, $params)
+    {
+        return $this->db->queryObject($sql, $params, $this->getEntityClass());
+    }
 
 }

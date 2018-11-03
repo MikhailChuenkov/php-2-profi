@@ -21,19 +21,19 @@ class Cart extends DataEntity
     public function getBasket(){
         $productRepository = new ProductRepository();
 
-        $productCount = $this->getData();
+        $basket = $this->getData();
 
         $productSumm = [];
         $productsFromCartArray = [];
         $summBasket = 0;
-        if(!empty($productCount)){
-            $productIds = array_keys($productCount);
+        if(!empty($basket)){
+            $productIds = array_keys($basket);
             for ($i = 0; $i < count($productIds); $i++){
                 $product = $productRepository->getOne($productIds[$i]);
 
                 $productsFromCartArray[] = $product;
 
-                $productSumm[$productIds[$i]] = $product->price * $productCount[$productIds[$i]];
+                $productSumm[$productIds[$i]] = $product->price * $basket[$productIds[$i]];
 
                 $summBasket += $productSumm[$productIds[$i]];
             }
@@ -41,7 +41,7 @@ class Cart extends DataEntity
         }
 
         $this->productsFromCartArray = $productsFromCartArray;
-        $this->productCount = $productCount;
+        $this->productCount = $basket;
         $this->productSumm = $productSumm;
         $this->summBasket = $summBasket;
     }

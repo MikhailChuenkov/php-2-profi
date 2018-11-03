@@ -27,6 +27,14 @@ abstract class Repository implements IRepository
         return static::getDb()->queryObject($sql, [':id' => $id], $this->getEntityClass());
     }
 
+    public function getOneForLastInsertId()
+    {
+        $id = $this->db->lastInsertId();
+        $table = static::getTableName();
+        $sql = "SELECT * FROM {$table} WHERE id = :id";
+        return static::getDb()->queryObject($sql, [':id' => $id], $this->getEntityClass());
+    }
+
     public function getAll()
     {
         $table = static::getTableName();

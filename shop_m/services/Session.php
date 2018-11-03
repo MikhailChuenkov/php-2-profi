@@ -26,6 +26,11 @@ class Session
         return $this->selectBasket;
     }
 
+    public function clearSessionBasket()
+    {
+        unset($_SESSION['basket']);
+    }
+
     public function setIncProductCount($id)
     {
         $_SESSION['basket'][$id]++;

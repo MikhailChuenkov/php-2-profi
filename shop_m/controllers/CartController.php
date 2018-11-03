@@ -7,6 +7,7 @@ use app\models\repositories\ProductRepository;
 use app\services\Session;
 use app\services\Request;
 use app\models\Cart;
+use app\controllers\ProductController;
 
 class CartController extends Controller
 {
@@ -26,9 +27,8 @@ class CartController extends Controller
             'productSumm' => $cart->productSumm,
             'summBasket' => $cart->summBasket
         ]);
+
     }
-
-
     public function actionAddProductToBasket()
     {
         (new Cart())->addToBasket();

@@ -27,13 +27,6 @@ class Db implements IDb
     protected function getConnection()
     {
         if (is_null($this->conn)) {
-            /*$this->conn = mysqli_connect(
-                $this->config['host'],
-                $this->config['login'],
-                $this->config['password'],
-                $this->config['database']
-            );*/
-
             $this->conn = new \PDO(
                 $this->prepareDsnString(),
                 $this->config['login'],

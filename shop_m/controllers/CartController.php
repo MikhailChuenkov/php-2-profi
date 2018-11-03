@@ -4,10 +4,7 @@
 namespace app\controllers;
 
 use app\models\repositories\ProductRepository;
-use app\services\Session;
-use app\services\Request;
 use app\models\Cart;
-use app\controllers\ProductController;
 
 class CartController extends Controller
 {

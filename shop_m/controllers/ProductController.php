@@ -9,8 +9,6 @@ use app\models\repositories\ProductRepository;
 class ProductController extends Controller
 {
 
-
-
     public function actionIndex()
     {
         $productRepository = new ProductRepository();
@@ -31,13 +29,9 @@ class ProductController extends Controller
 
     public function actionCard()
     {
-        //$this->useLayout = false;
         $id = App::call()->request->get('id');
         $model = (new ProductRepository())->getOne($id);
         echo $this->render("product", ['model' => $model]);
 
     }
-
-
-
 }

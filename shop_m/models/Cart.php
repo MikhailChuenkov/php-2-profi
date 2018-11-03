@@ -73,7 +73,6 @@ class Cart extends DataEntity
     }
 
     private function getData(){
-        //$session = Session::getInstance();
         $session = App::call()->session;
         $session->setSessionBasket();
         return $session->getSessionBasket();

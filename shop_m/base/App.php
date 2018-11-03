@@ -44,11 +44,9 @@ class App
         }
 
         $controllerClass = $this->config['controllerNamespace'] . "\\" . ucfirst($controllerName) . "Controller";
-        //var_dump($controllerClass);
         if (class_exists($controllerClass)) {
             $controller = new $controllerClass(
                 new \app\services\renderers\TemplateRenderer()
-            //new \app\services\renderers\TwigRenderer()
             );
             $controller->run($actionName);
         }
@@ -60,7 +58,6 @@ class App
             $class = $params['class'];
             if (class_exists($class)){
                 unset($params['class']);
-                //$component = new $class;
                 $reflection = new \ReflectionClass($class);
                 return $reflection->newInstanceArgs($params);
             }else{

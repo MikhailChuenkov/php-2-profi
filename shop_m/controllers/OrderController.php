@@ -33,7 +33,6 @@ class OrderController extends Controller
         $cart = new Cart();
         $cart->getBasket();
 
-        //Product::getAll();
         echo $this->render("products", [
             'model' => $model,
             'productsFromCartArray' => $cart->productsFromCartArray,
@@ -79,6 +78,12 @@ class OrderController extends Controller
         $orderProducts->ClearBasket();
 
         $this->actionRedirectToProduct();
+    }
+
+    public function actionDelProductFromBasket()
+    {
+        (new Cart())->delProductFromBasket();
+        $this->actionIndex();
     }
 
 }
